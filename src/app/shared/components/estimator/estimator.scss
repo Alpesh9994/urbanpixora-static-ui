@@ -1,0 +1,347 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+.estimator {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    color: #111111;
+    padding: 0;
+
+    &.is-success {
+        justify-content: center;
+        align-items: center;
+    }
+
+    // When rendered as a popup service
+    &.is-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: $z-modal;
+        background-color: rgba(#ffffff, 0.95);
+        backdrop-filter: blur(16px);
+        overflow-y: auto;
+
+        // Smooth fade in
+        animation: modalFadeIn 0.3s ease-out forwards;
+    }
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.estimator__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at top right, rgba($color-accent, 0.08), transparent 40%),
+        radial-gradient(circle at bottom left, rgba($color-accent, 0.05), transparent 40%);
+    z-index: 0;
+}
+
+// ── Header & Progress ───────────────────────────────────────
+.estimator__header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(#ffffff, 0.85);
+    backdrop-filter: blur(12px);
+    padding: $space-lg $space-xl;
+    border-bottom: 1px solid rgba(#000000, 0.08);
+}
+
+.estimator__progress {
+    height: 4px;
+    background: rgba(#000000, 0.06);
+    border-radius: $radius-full;
+    margin-bottom: $space-md;
+    overflow: hidden;
+}
+
+.estimator__progress-bar {
+    height: 100%;
+    background: $color-accent;
+    border-radius: $radius-full;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.estimator__steps-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: $font-mono;
+    font-size: $font-size-xs;
+    color: #666666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+
+    .btn-text {
+        background: transparent;
+        border: none;
+        color: #666666;
+        cursor: pointer;
+        font-size: $font-size-xs;
+        text-transform: uppercase;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: #111111;
+        }
+    }
+}
+
+// ── Main Area ────────────────────────────────────────────────
+.estimator__main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $space-xxl $space-lg;
+    position: relative;
+    z-index: 1;
+}
+
+.estimator__form {
+    width: 100%;
+    max-width: 600px;
+}
+
+// ── Steps ───────────────────────────────────────────────────
+.step {
+    width: 100%;
+}
+
+.step__title {
+    font-family: $font-primary;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: $font-weight-bold;
+    line-height: $line-height-tight;
+    margin: 0 0 $space-sm;
+}
+
+.step__desc {
+    font-size: $font-size-md;
+    color: #555555;
+    margin: 0 0 $space-xl;
+}
+
+// ── Selection Cards ──────────────────────────────────────────
+.options-grid {
+    display: grid;
+    gap: $space-md;
+
+    &--multi {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+
+    &--small {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+}
+
+.option-card {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    background: #ffffff;
+    border: 1px solid rgba(#000000, 0.12);
+    border-radius: $radius-md;
+    padding: $space-lg;
+    transition: all $transition-fast;
+
+    &:hover {
+        border-color: rgba(#000000, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    &.checked {
+        border-color: $color-accent;
+        background: rgba($color-accent, 0.03);
+        box-shadow: 0 0 0 1px $color-accent inset;
+
+        .option-card__title {
+            color: $color-accent;
+        }
+    }
+
+    // Explicitly hide native inputs
+    input[type="checkbox"],
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        width: 0;
+        height: 0;
+    }
+}
+
+.option-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+}
+
+.option-card__title {
+    font-family: $font-primary;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-base;
+    color: #111111;
+    transition: color $transition-fast;
+}
+
+.option-card__meta {
+    font-size: $font-size-xs;
+    color: #666666;
+}
+
+// Radio specific (center aligned text for timeline/budget)
+.option-card--radio {
+    text-align: center;
+    padding: $space-md;
+
+    .option-card__title {
+        font-size: $font-size-sm;
+    }
+}
+
+// ── Text Inputs ──────────────────────────────────────────────
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-lg;
+
+    @include respond-md {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.form-group {
+    margin-bottom: $space-lg;
+
+    &.mt-xl {
+        margin-top: $space-xl;
+    }
+}
+
+.form-label {
+    display: block;
+    font-size: $font-size-sm;
+    color: #666666;
+    margin-bottom: $space-sm;
+
+    &--large {
+        font-size: $font-size-md;
+        color: #111111;
+        font-weight: $font-weight-medium;
+    }
+}
+
+// Floating label implementation
+.floating {
+    position: relative;
+
+    .form-control {
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid rgba(#000000, 0.15);
+        border-radius: 0;
+        padding: $space-md 0 $space-xs;
+        font-family: $font-primary;
+        color: #111111;
+        font-size: $font-size-md;
+        outline: none;
+        transition: border-color $transition-fast;
+
+        &:focus {
+            border-color: $color-accent;
+        }
+
+        // When not empty or when focused, label floats
+        &:focus~.floating-label,
+        &:not(:placeholder-shown)~.floating-label {
+            top: -4px;
+            font-size: $font-size-xs;
+            color: $color-accent;
+        }
+    }
+
+    .floating-label {
+        position: absolute;
+        top: $space-md;
+        left: 0;
+        font-size: $font-size-base;
+        color: #777777;
+        pointer-events: none;
+        transition: all $transition-fast;
+    }
+
+    textarea.form-control {
+        resize: none;
+        min-height: 100px;
+    }
+}
+
+// ── Footer Controls ──────────────────────────────────────────
+.estimator__footer {
+    margin-top: $space-xxl;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(#000000, 0.08);
+    padding-top: $space-lg;
+
+    .btn {
+        min-width: 140px;
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+}
+
+// ── Success State ───────────────────────────────────────────
+.step--success {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+
+    .step__desc {
+        margin-bottom: $space-xxl;
+    }
+}
+
+.step__icon--success {
+    width: 80px;
+    height: 80px;
+    border-radius: $radius-full;
+    background: rgba($color-accent, 0.1);
+    color: $color-accent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: $space-lg;
+
+    svg {
+        width: 40px;
+        height: 40px;
+    }
+}

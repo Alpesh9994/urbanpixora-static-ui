@@ -1,22 +1,26 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { HeaderComponent } from './shared/components/header/header';
 import { OverlayMenuComponent } from './shared/components/overlay-menu/overlay-menu';
 import { SmoothScrollService } from './shared/services/smooth-scroll.service';
 import { CustomCursorComponent } from './shared/components/custom-cursor/custom-cursor';
+import { WhatsappButtonComponent } from './shared/components/whatsapp-button/whatsapp-button';
 import { routeTransitionAnimations } from './shared/animations/route-animations';
+import { EstimatorComponent } from './shared/components/estimator/estimator';
+import { EstimatorModalService } from './shared/services/estimator-modal.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, OverlayMenuComponent, CustomCursorComponent],
+  imports: [RouterOutlet, HeaderComponent, OverlayMenuComponent, CustomCursorComponent, WhatsappButtonComponent, EstimatorComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   animations: [routeTransitionAnimations]
 })
 export class App implements OnInit {
-  isAdminRoute = signal(false);
+  isStandaloneRoute = signal(false);
+  estimatorModal = inject(EstimatorModalService);
 
   constructor(
     private smoothScroll: SmoothScrollService,
@@ -24,13 +28,17 @@ export class App implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.removeGlobalLoader();
+
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd)
     ).subscribe((e: NavigationEnd) => {
-      const admin = e.urlAfterRedirects.startsWith('/admin');
-      this.isAdminRoute.set(admin);
+      const url = e.urlAfterRedirects;
 
-      if (admin) {
+      // Force standalone mode for the entire site while under coming soon
+      this.isStandaloneRoute.set(true);
+
+      if (url.startsWith('/admin')) {
         // Destroy Lenis so the admin panel uses native browser scroll
         this.smoothScroll.destroy();
         document.documentElement.style.overflow = '';
@@ -50,14 +58,9 @@ export class App implements OnInit {
       });
     });
 
-    // Check on first load (before any navigation event)
-    const initialUrl = this.router.url;
-    if (initialUrl.startsWith('/admin')) {
-      this.isAdminRoute.set(true);
-      this.smoothScroll.destroy();
-    } else {
-      this.smoothScroll.init();
-    }
+    // Force standalone mode intrinsically on load
+    this.isStandaloneRoute.set(true);
+    this.smoothScroll.init();
   }
 
   getRouteAnimationData(outlet: RouterOutlet) {
@@ -65,5 +68,15 @@ export class App implements OnInit {
       ? outlet.activatedRoute.snapshot.url.join('/')
       : null;
   }
-}
 
+  private removeGlobalLoader() {
+    const loader = document.getElementById('global-loader');
+    if (loader && !loader.classList.contains('loader-fade-out')) {
+      // Add a tiny delay so the gorgeous loader is visible for at least a fraction of a second even on fast loads
+      setTimeout(() => {
+        loader.classList.add('loader-fade-out');
+        setTimeout(() => loader.remove(), 500);
+      }, 500);
+    }
+  }
+}

@@ -29,55 +29,8 @@
 
             <!-- Form left -->
             <div class="contact-form-wrap" scrollReveal revealFrom="left">
-                @if (!submitted()) {
-                <form class="form" (submit)="onSubmit($event)" novalidate>
-                    <h3 class="form__heading">Send a Message</h3>
-
-                    <div class="form__row">
-                        <div class="form__field">
-                            <input id="cf-name" class="form__input" type="text" placeholder=" " [value]="name()"
-                                (input)="name.set($any($event.target).value)" required />
-                            <label class="form__label" for="cf-name">Your Name</label>
-                        </div>
-                        <div class="form__field">
-                            <input id="cf-email" class="form__input" type="email" placeholder=" " [value]="email()"
-                                (input)="email.set($any($event.target).value)" required />
-                            <label class="form__label" for="cf-email">Email Address</label>
-                        </div>
-                    </div>
-
-                    <div class="form__field">
-                        <input id="cf-subject" class="form__input" type="text" placeholder=" " [value]="subject()"
-                            (input)="subject.set($any($event.target).value)" required />
-                        <label class="form__label" for="cf-subject">Subject</label>
-                    </div>
-
-                    <div class="form__field">
-                        <textarea id="cf-msg" class="form__textarea" placeholder=" " [value]="message()"
-                            (input)="message.set($any($event.target).value)" required></textarea>
-                        <label class="form__label" for="cf-msg">Project Details</label>
-                    </div>
-
-                    <div class="form__submit-wrap">
-                        <button class="btn-primary" type="submit" [disabled]="loading()">
-                            @if (loading()) {
-                            <span class="form__spinner"></span>
-                            } @else {
-                            <span>Send Message →</span>
-                            }
-                        </button>
-                        @if (error()) {
-                        <p class="form__error">⚠ {{ error() }}</p>
-                        }
-                    </div>
-                </form>
-                } @else {
-                <div class="form__success">
-                    <div class="form__success-icon">✓</div>
-                    <h3>Message Sent!</h3>
-                    <p>Thanks for reaching out. We'll get back to you within 24 hours.</p>
-                </div>
-                }
+                <!-- Inline Estimator Component instead of generic form -->
+                <app-estimator [asModal]="false"></app-estimator>
             </div>
 
             <!-- Info right -->

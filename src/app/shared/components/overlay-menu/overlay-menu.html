@@ -34,9 +34,9 @@
 
         <!-- Left: Primary nav -->
         <nav class="nav-overlay__primary" role="navigation" aria-label="Main navigation">
-            @for (link of navLinks; track link.path) {
-            <a class="nav-overlay__link" [class.is-active]="isActive(link.path)" href="{{ link.path }}"
-                (click)="navigateTo(link.path, $event)" @itemAnim>
+            @for (link of navLinks; track link.label) {
+            <a class="nav-overlay__link" [class.is-active]="link.path ? isActive(link.path) : false"
+                [href]="link.path || '#'" (click)="handleClick(link, $event)" @itemAnim>
                 {{ link.label }}
             </a>
             }

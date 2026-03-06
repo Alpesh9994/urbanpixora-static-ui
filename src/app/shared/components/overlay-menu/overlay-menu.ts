@@ -13,6 +13,7 @@ import {
     animateChild,
 } from '@angular/animations';
 import { MenuStateService } from '../../services/menu-state.service';
+import { EstimatorModalService } from '../../services/estimator-modal.service';
 
 const OVERLAY_ANIM = trigger('overlayAnim', [
     transition(':enter', [
@@ -49,13 +50,14 @@ const ITEM_ANIM = trigger('itemAnim', [
 export class OverlayMenuComponent {
     protected readonly menuState = inject(MenuStateService);
     private readonly router = inject(Router);
+    private readonly estimatorModal = inject(EstimatorModalService);
 
     readonly navLinks = [
         { label: 'Home', path: '/' },
         { label: 'Projects', path: '/projects' },
         { label: 'Services', path: '/services' },
         { label: 'Contact', path: '/contact' },
-        { label: 'About', path: '/about' },
+        { label: 'Start Project', action: 'modal' },
     ];
 
     isActive(path: string): boolean {
@@ -70,12 +72,17 @@ export class OverlayMenuComponent {
      * This prevents the race condition where the new page mounts (and
      * ScrollRevealDirective hides everything) while the overlay is still visible.
      */
-    navigateTo(path: string, event: Event) {
+    handleClick(link: any, event: Event) {
         event.preventDefault();
         this.menuState.close();
-        // Wait for the leave animation to finish (200ms) before navigating
+
+        // Wait for the leave animation to finish (200ms)
         setTimeout(() => {
-            this.router.navigateByUrl(path);
+            if (link.action === 'modal') {
+                this.estimatorModal.open();
+            } else if (link.path) {
+                this.router.navigateByUrl(link.path);
+            }
         }, 210);
     }
 }

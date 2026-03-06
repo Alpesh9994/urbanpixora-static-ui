@@ -1,10 +1,15 @@
-@if (!isAdminRoute()) {
-  <app-custom-cursor />
-  <app-header />
-  <app-overlay-menu />
-  <main class="app-shell" [@routeTransition]="getRouteAnimationData(outlet)">
-    <router-outlet #outlet="outlet" />
-  </main>
+@if (!isStandaloneRoute()) {
+<app-custom-cursor />
+<app-header />
+<app-overlay-menu />
+<main class="app-shell" [@routeTransition]="getRouteAnimationData(outlet)">
+  <router-outlet #outlet="outlet" />
+</main>
+<app-whatsapp-button />
+
+@if (estimatorModal.isOpen()) {
+<app-estimator [asModal]="true" (close)="estimatorModal.close()"></app-estimator>
+}
 } @else {
-  <router-outlet />
+<router-outlet />
 }

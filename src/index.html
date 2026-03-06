@@ -26,7 +26,10 @@
 
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.svg">
+
+  <!-- Favicon (SVG for modern browsers) -->
+  <link rel="icon" type="image/svg+xml" href="icons/logo.svg">
+  <link rel="apple-touch-icon" href="icons/logo.svg">
 
   <!-- ── Fonts ─────────────────────────────────────────────────
        Non-blocking: preconnect first, then load with media="print"
@@ -38,11 +41,14 @@
     Load font asynchronously: start with media="print" so browser
     downloads it without blocking render, then swap to "all" on load.
   -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Syne:wght@400..800&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Syne:wght@400..800&display=swap"
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Syne:wght@400..800&display=swap">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Syne:wght@400..800&display=swap"
     media="print" onload="this.media='all'">
   <noscript>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Syne:wght@400..800&display=swap">
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Syne:wght@400..800&display=swap">
   </noscript>
 
   <!-- ── LCP Preload ───────────────────────────────────────────
@@ -54,6 +60,10 @@
 </head>
 
 <body>
+  <div id="global-loader" class="global-loader">
+    <div class="loader-orbit"></div>
+    <div class="loader-orb"></div>
+  </div>
   <app-root></app-root>
 </body>
 

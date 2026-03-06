@@ -37,7 +37,7 @@ import { CmsService, CmsPage, CmsSection } from '../../shared/services/cms.servi
       <app-cta-section [data]="getSection('cta')" />
       <app-footer />
     } @else {
-      <div class="loading-state">Loading...</div>
+      <div class="loading-state"></div>
     }
   `
 })

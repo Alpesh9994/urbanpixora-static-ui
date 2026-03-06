@@ -1,0 +1,221 @@
+<div class="estimator" [class.is-success]="isSuccess" [class.is-modal]="asModal">
+
+    <div class="estimator__bg"></div>
+
+    <!-- Header & Progress Line -->
+    @if (!isSuccess) {
+    <header class="estimator__header">
+        <div class="estimator__progress">
+            <div class="estimator__progress-bar" [style.width.%]="(currentStep / totalSteps) * 100"></div>
+        </div>
+        <div class="estimator__steps-meta">
+            <span>Step {{ currentStep }} of {{ totalSteps }}</span>
+            @if (asModal) {
+            <button class="btn-text" (click)="onClose($event)" aria-label="Cancel and close">Close</button>
+            }
+        </div>
+    </header>
+    }
+
+    <main class="estimator__main">
+
+        <!-- SUCCESS STATE -->
+        @if (isSuccess) {
+        <div class="step step--success">
+            <div class="step__icon step__icon--success">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <h1 class="step__title">Request Received</h1>
+            <p class="step__desc">
+                Thank you for reaching out! We've received your project details and will be in touch within 24 hours to
+                discuss the next steps.
+            </p>
+            @if (asModal) {
+            <button class="btn btn-primary" (click)="onClose($event)">Close Window</button>
+            }
+        </div>
+        }
+
+        <!-- FORM WIZARD -->
+        @if (!isSuccess) {
+        <form [formGroup]="estimatorForm" (ngSubmit)="onSubmit()" class="estimator__form">
+
+            <!-- STEP 1: Services -->
+            @if (currentStep === 1) {
+            <div class="step" @stepAnimation>
+                <h1 class="step__title">What do you need help with?</h1>
+                <p class="step__desc">Select one or more services to get started.</p>
+
+                <div class="options-grid options-grid--multi" formGroupName="services">
+                    <label class="option-card" [class.checked]="services.get('webDesign')?.value">
+                        <input type="checkbox" formControlName="webDesign" class="sr-only">
+                        <div class="option-card__content">
+                            <span class="option-card__title">Web Design & Dev</span>
+                        </div>
+                    </label>
+                    <label class="option-card" [class.checked]="services.get('webOptimization')?.value">
+                        <input type="checkbox" formControlName="webOptimization" class="sr-only">
+                        <div class="option-card__content">
+                            <span class="option-card__title">Website Optimization</span>
+                        </div>
+                    </label>
+                    <label class="option-card" [class.checked]="services.get('basicSEO')?.value">
+                        <input type="checkbox" formControlName="basicSEO" class="sr-only">
+                        <div class="option-card__content">
+                            <span class="option-card__title">Basic SEO</span>
+                        </div>
+                    </label>
+                    <label class="option-card" [class.checked]="services.get('branding')?.value">
+                        <input type="checkbox" formControlName="branding" class="sr-only">
+                        <div class="option-card__content">
+                            <span class="option-card__title">Branding</span>
+                        </div>
+                    </label>
+                    <label class="option-card" [class.checked]="services.get('graphicsDesign')?.value">
+                        <input type="checkbox" formControlName="graphicsDesign" class="sr-only">
+                        <div class="option-card__content">
+                            <span class="option-card__title">Graphics Design</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            }
+
+            <!-- STEP 2: Web Specifics (Conditional) -->
+            @if (currentStep === 2) {
+            <div class="step" @stepAnimation>
+                <h1 class="step__title">What type of website?</h1>
+                <p class="step__desc">Select the technical approach for your web project.</p>
+
+                <div class="options-grid">
+                    <label class="option-card option-card--radio"
+                        [class.checked]="f['webType'].value === 'static-basic'">
+                        <input type="radio" formControlName="webType" value="static-basic" class="sr-only">
+                        <div class="option-card__content">
+                            <span class="option-card__title">Static Site</span>
+                            <span class="option-card__meta">HTML / CSS / Bootstrap</span>
+                        </div>
+                    </label>
+                    <label class="option-card option-card--radio"
+                        [class.checked]="f['webType'].value === 'static-angular'">
+                        <input type="radio" formControlName="webType" value="static-angular" class="sr-only">
+                        <div class="option-card__content">
+                            <span class="option-card__title">Static App</span>
+                            <span class="option-card__meta">Angular framework</span>
+                        </div>
+                    </label>
+                    <label class="option-card option-card--radio" [class.checked]="f['webType'].value === 'dynamic-wp'">
+                        <input type="radio" formControlName="webType" value="dynamic-wp" class="sr-only">
+                        <div class="option-card__content">
+                            <span class="option-card__title">Dynamic Content</span>
+                            <span class="option-card__meta">WordPress CMS</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            }
+
+            <!-- STEP 3: Specs -->
+            @if (currentStep === 3) {
+            <div class="step" @stepAnimation>
+                <h1 class="step__title">Project constraints</h1>
+                <p class="step__desc">Help us understand your timeline and budget.</p>
+
+                <div class="form-group">
+                    <label class="form-label form-label--large">Estimated Timeline</label>
+                    <div class="options-grid options-grid--small">
+                        <label class="option-card option-card--radio" [class.checked]="f['timeline'].value === 'rush'">
+                            <input type="radio" formControlName="timeline" value="rush" class="sr-only">
+                            <span class="option-card__title">&lt; 1 Month</span>
+                        </label>
+                        <label class="option-card option-card--radio"
+                            [class.checked]="f['timeline'].value === 'normal'">
+                            <input type="radio" formControlName="timeline" value="normal" class="sr-only">
+                            <span class="option-card__title">1 - 3 Months</span>
+                        </label>
+                        <label class="option-card option-card--radio"
+                            [class.checked]="f['timeline'].value === 'relaxed'">
+                            <input type="radio" formControlName="timeline" value="relaxed" class="sr-only">
+                            <span class="option-card__title">3+ Months</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group mt-xl">
+                    <label class="form-label form-label--large">Budget Range</label>
+                    <div class="options-grid options-grid--small">
+                        <label class="option-card option-card--radio" [class.checked]="f['budget'].value === 'small'">
+                            <input type="radio" formControlName="budget" value="small" class="sr-only">
+                            <span class="option-card__title">&lt; $2,000</span>
+                        </label>
+                        <label class="option-card option-card--radio" [class.checked]="f['budget'].value === 'medium'">
+                            <input type="radio" formControlName="budget" value="medium" class="sr-only">
+                            <span class="option-card__title">$2k - $5k</span>
+                        </label>
+                        <label class="option-card option-card--radio" [class.checked]="f['budget'].value === 'large'">
+                            <input type="radio" formControlName="budget" value="large" class="sr-only">
+                            <span class="option-card__title">$5k+</span>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+            }
+
+            <!-- STEP 4: Contact -->
+            @if (currentStep === 4) {
+            <div class="step" @stepAnimation>
+                <h1 class="step__title">Final details</h1>
+                <p class="step__desc">Where should we send the proposal?</p>
+
+                <div class="form-row">
+                    <div class="form-group floating">
+                        <input type="text" id="estName" class="form-control" formControlName="name" placeholder=" ">
+                        <label for="estName" class="floating-label">Your Name</label>
+                    </div>
+                    <div class="form-group floating">
+                        <input type="email" id="estEmail" class="form-control" formControlName="email" placeholder=" ">
+                        <label for="estEmail" class="floating-label">Email Address</label>
+                    </div>
+                </div>
+
+                <div class="form-group floating">
+                    <input type="text" id="estCompany" class="form-control" formControlName="company" placeholder=" ">
+                    <label for="estCompany" class="floating-label">Company Name (Optional)</label>
+                </div>
+
+                <div class="form-group floating">
+                    <textarea id="estDetails" class="form-control" formControlName="details" rows="3"
+                        placeholder=" "></textarea>
+                    <label for="estDetails" class="floating-label">Tell us a bit about the project...</label>
+                </div>
+            </div>
+            }
+
+            <!-- CONTROLS -->
+            <footer class="estimator__footer">
+                @if (currentStep > 1) {
+                <button type="button" class="btn btn-outline" (click)="prevStep()">Back</button>
+                } @else {
+                <div></div> <!-- Spacer -->
+                }
+
+                @if (currentStep < totalSteps) { <button type="button" class="btn btn-primary" (click)="nextStep()">
+                    Next Step
+                    <span class="btn-arrow">→</span>
+                    </button>
+                    } @else {
+                    <button type="submit" class="btn btn-primary" [disabled]="estimatorForm.invalid || isSubmitting">
+                        {{ isSubmitting ? 'Sending...' : 'Submit Request' }}
+                        <span class="btn-arrow" *ngIf="!isSubmitting">→</span>
+                    </button>
+                    }
+            </footer>
+
+        </form>
+        }
+
+    </main>
+</div>

@@ -1,0 +1,33 @@
+# UrbanPixora — Task Tracker
+
+## ✅ Completed
+
+- [x] Global CSS button refactoring (`_buttons.scss`)
+- [x] Inner page background colour system (white / light-gray alternating)
+- [x] Lenis smooth scroll (`SmoothScrollService` injected in `AppComponent`)
+- [x] Who We Are image sequence animation (scroll-scrubbed, HD, rAF-throttled)
+- [x] Contact page redesign (floating labels, info card, icon social links)
+- [x] Blank screen / navigation race condition fix
+- [x] About, Services, Projects pages — all sections built
+- [x] `scrollPositionRestoration: 'top'` in router config
+
+---
+
+## 🔲 Backlog (priority order)
+
+### P1 — High Impact / UX
+- [x] **Project case study pages** — individual `/projects/:slug` route with full project detail
+- [x] **Contact form integration** — wire form to Formspree / EmailJS so messages actually arrive
+- [x] **Custom cursor** — animated agency-style cursor that follows mouse
+- [x] **Page transition animation** — fade/slide between routes for cinematic navigation
+
+### P2 — Performance & SEO
+- [x] **SEO meta tags** — `<title>`, `<meta description>`, Open Graph per page
+- [x] **Image optimisation** — convert project images & sequence frames to WebP
+- [x] **Lazy loading** — load project images only when visible (IntersectionObserver)
+
+### P3 — Polish
+- [x] **404 Not Found page** — currently blank on unknown routes
+- [x] **Project filter animation** — animate cards in/out when switching filter tabs
+- [x] **Loading skeleton** — skeleton screens while pages first load
+- [x] **Testimonials drag** — make testimonials slider draggable on mobile

@@ -1,0 +1,155 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+.coming-soon {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    color: #111111;
+    overflow: hidden;
+}
+
+// ── Background Orbs ──────────────────────────────────────────
+.coming-soon__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.blur-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+    animation: floatOrb 20s infinite ease-in-out alternate;
+
+    &--1 {
+        width: 600px;
+        height: 600px;
+        background: $color-accent;
+        top: -100px;
+        right: -100px;
+    }
+
+    &--2 {
+        width: 500px;
+        height: 500px;
+        background: #00bcd4; // cyan complementary
+        bottom: -100px;
+        left: -100px;
+        animation-delay: -10s;
+    }
+}
+
+@keyframes floatOrb {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(-100px, 50px) scale(1.2);
+    }
+}
+
+// ── Content ──────────────────────────────────────────────────
+.coming-soon__content {
+    position: relative;
+    z-index: 1;
+    // max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 30px 0px;
+    animation: fadeUpIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeUpIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.coming-soon__badge {
+    display: inline-block;
+    font-family: $font-mono;
+    font-size: $font-size-xs;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: $space-xs $space-md;
+    border-radius: $radius-full;
+    border: 1px solid rgba(#000000, 0.1);
+    background: rgba(#000000, 0.03);
+    margin-bottom: $space-lg;
+}
+
+.coming-soon__title {
+    font-family: $font-primary;
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: $font-weight-bold;
+    line-height: $line-height-tight;
+    letter-spacing: -0.02em;
+    margin-bottom: $space-lg;
+
+    em {
+        font-style: italic;
+        font-weight: $font-weight-medium;
+        color: $color-accent;
+    }
+}
+
+.coming-soon__desc {
+    font-size: clamp($font-size-md, 2vw, $font-size-lg);
+    color: #555555;
+    max-width: 600px;
+    margin: 0 auto $space-xl;
+    line-height: $line-height-loose;
+}
+
+.coming-soon__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $space-md;
+    flex-wrap: wrap;
+
+    .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: $space-sm $space-xl;
+        font-family: $font-primary;
+        font-size: $font-size-base;
+        font-weight: $font-weight-medium;
+        color: #111111;
+        background: transparent;
+        border: 1px solid #111111;
+        border-radius: $radius-full;
+        text-decoration: none;
+        transition: all $transition-fast;
+
+        &:hover {
+            background: #111111;
+            color: #ffffff;
+        }
+    }
+}
+
+.coming-soon__footer {
+    margin-top: 40px;
+    font-size: $font-size-sm;
+    color: #888888;
+
+    p {
+        margin-bottom: 0px;
+    }
+}

@@ -26,12 +26,13 @@ export class HeaderComponent {
         this.router.events
             .pipe(filter(e => e instanceof NavigationEnd))
             .subscribe((e: NavigationEnd) => {
-                this.isHomePage.set(e.urlAfterRedirects === '/' || e.urlAfterRedirects === '');
+                const url = e.urlAfterRedirects;
+                this.isHomePage.set(url === '/' || url === '' || url.startsWith('/start-project'));
             });
 
         // Set initial state immediately (for first load)
         const url = this.router.url;
-        this.isHomePage.set(url === '/' || url === '');
+        this.isHomePage.set(url === '/' || url === '' || url.startsWith('/start-project'));
     }
 
     @HostListener('window:scroll', [])

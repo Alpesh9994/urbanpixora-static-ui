@@ -126,3 +126,81 @@ a {
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+// ── Global Entry Loader ─────────────────────────────────────
+.global-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: $color-bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s;
+  opacity: 1;
+  visibility: visible;
+}
+
+.global-loader.loader-fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-orb {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: $radius-full;
+  background: radial-gradient(circle,
+      rgba($color-accent, 0.28) 0%,
+      rgba($color-accent, 0.08) 50%,
+      transparent 70%);
+  animation: orbPulseLoader 3s ease-in-out infinite;
+}
+
+.loader-orbit {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: $radius-full;
+  border: 1px dashed rgba($color-accent, 0.25);
+  animation: orbSpinLoader 8s linear infinite;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: $radius-full;
+    background: $color-accent;
+    box-shadow: 0 0 12px rgba($color-accent, 0.8);
+  }
+}
+
+@keyframes orbPulseLoader {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 0.7;
+  }
+}
+
+@keyframes orbSpinLoader {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
