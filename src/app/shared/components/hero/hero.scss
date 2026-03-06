@@ -103,6 +103,7 @@
     color: $color-text-muted;
     max-width: 100%;
     margin: 0 0 $space-xl;
+    font-weight: $font-weight-thin;
 
     @include respond-md {
         max-width: 400px;
