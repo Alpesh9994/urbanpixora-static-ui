@@ -111,7 +111,7 @@ $light-border: rgba(0, 0, 0, 0.08);
     height: 52px;
     border-radius: $radius-full;
     background: $color-accent;
-    color: #000;
+    color: $color-text;
     font-weight: $font-weight-bold;
     font-size: $font-size-xs;
     display: flex;
@@ -190,7 +190,7 @@ $light-border: rgba(0, 0, 0, 0.08);
     top: $space-lg;
     right: 0; // flush on mobile
     background: $color-accent;
-    color: #000;
+    color: $color-text;
     border-radius: $radius-md;
     padding: $space-md $space-lg;
     text-align: center;

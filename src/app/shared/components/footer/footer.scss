@@ -4,7 +4,7 @@
 .site-footer {
     background: $color-bg-secondary;
     border-top: 1px solid $color-border;
-    padding: $space-xxl 0 $space-xl;
+    padding: $space-xxl 0 $space-md;
 }
 
 // ── Top row ───────────────────────────────────────────────────
@@ -50,7 +50,7 @@
 .site-footer__divider {
     height: 1px;
     background: $color-border;
-    margin: $space-xl 0;
+    margin: $space-md 0;
 }
 
 // ── Offices ───────────────────────────────────────────────────
@@ -58,9 +58,10 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: $space-xl;
+    align-items: center;
 
     @include respond-md {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -98,7 +99,7 @@
 
 // ── Bottom row ────────────────────────────────────────────────
 .site-footer__bottom {
-    @include flex-between;
+    @include flex-center;
     flex-wrap: wrap;
     gap: $space-lg;
 }
@@ -112,6 +113,7 @@
 
 .site-footer__social {
     display: flex;
+    justify-content: end;
     gap: $space-lg;
 }
 

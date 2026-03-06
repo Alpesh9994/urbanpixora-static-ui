@@ -13,7 +13,7 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     text-decoration: none;
-    color: #000;
+    color: $color-text;
     background: $color-accent;
     border-radius: $radius-full;
     padding: 13px 26px;
@@ -31,7 +31,7 @@
         background: $color-accent-dark;
         transform: translateX(-100%);
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 0;
+        z-index: -1;
     }
 
     span {
@@ -59,7 +59,7 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     text-decoration: none;
-    color: #fff;
+    color: $color-text;
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: $radius-full;
@@ -72,6 +72,19 @@
         border-color: rgba(255, 255, 255, 0.4);
         transform: translateY(-2px);
     }
+
+    &__dark{
+        color: $color-text-inverse;
+        border-color: rgba(0, 0, 0, 0.2);
+
+        &:hover {
+            border-color: $color-accent;
+            color: $color-accent;
+            transform: translateY(-2px);
+        }
+    }
+
+    
 }
 
 .btn-circle {

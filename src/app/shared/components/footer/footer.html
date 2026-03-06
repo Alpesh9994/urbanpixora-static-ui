@@ -28,7 +28,7 @@
 
         <!-- Middle: offices -->
         <div class="site-footer__offices">
-            <div class="site-footer__office">
+            <!-- <div class="site-footer__office">
                 <p class="site-footer__office-city">Ahmedabad</p>
                 <p class="site-footer__office-addr">A 307, Titanium Business Park, Makarba, Gujarat — 382350</p>
                 <a class="site-footer__office-contact" href="tel:+917900000000">+91 790 000 0000</a>
@@ -37,10 +37,17 @@
                 <p class="site-footer__office-city">Vadodara</p>
                 <p class="site-footer__office-addr">2nd floor, Msa House, New Sama, Gujarat — 390002</p>
                 <a class="site-footer__office-contact" href="tel:+917900000001">+91 790 000 0001</a>
-            </div>
+            </div> -->
             <div class="site-footer__office">
                 <p class="site-footer__office-city">Get In Touch</p>
-                <a class="site-footer__office-contact" href="mailto:hello@urbanpixora.com">hello&#64;urbanpixora.com</a>
+                <a class="site-footer__office-contact" href="mailto:info@urbanpixora.com">info&#64;urbanpixora.com</a>
+            </div>
+
+            <div class="site-footer__social">
+                @for (link of socialLinks; track link.label) {
+                <a class="site-footer__social-link" [href]="link.url" target="_blank" rel="noopener noreferrer">{{
+                    link.label }}</a>
+                }
             </div>
         </div>
 
@@ -51,12 +58,7 @@
             <p class="site-footer__copy">
                 &copy; {{ year }} UrbanPixora. All rights reserved.
             </p>
-            <div class="site-footer__social">
-                @for (link of socialLinks; track link.label) {
-                <a class="site-footer__social-link" [href]="link.url" target="_blank" rel="noopener noreferrer">{{
-                    link.label }}</a>
-                }
-            </div>
+            
         </div>
 
     </div>
