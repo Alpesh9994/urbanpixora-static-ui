@@ -31,8 +31,8 @@ $space-xl: 40px;
 $space-xxl: 64px;
 
 // --- Typography ---
-$font-primary: 'Inter', 'Roboto', sans-serif;
-$font-mono: 'Fira Code', monospace;
+$font-primary: "DM Sans", sans-serif;
+$font-mono: "Syne", sans-serif;
 
 $font-size-xs: 0.75rem; // 12px
 $font-size-sm: 0.875rem; // 14px
@@ -42,6 +42,7 @@ $font-size-lg: 1.5rem; // 24px
 $font-size-xl: 2rem; // 32px
 $font-size-xxl: 3rem; // 48px
 
+$font-weight-thin: 300;
 $font-weight-regular: 400;
 $font-weight-medium: 500;
 $font-weight-semibold: 600;

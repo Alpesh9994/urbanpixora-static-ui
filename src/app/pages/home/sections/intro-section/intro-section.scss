@@ -42,7 +42,7 @@ $light-border: rgba(0, 0, 0, 0.08);
 
     @include respond-lg {
         grid-template-columns: 1fr 1fr;
-        gap: 100px;
+        gap: $space-xxl;
     }
 }
 
