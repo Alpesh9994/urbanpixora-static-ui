@@ -38,6 +38,12 @@ export class App implements OnInit {
       // Force standalone mode for the entire site while under coming soon
       this.isStandaloneRoute.set(true);
 
+      /*
+      // --- ORIGINAL LOGIC (UNCOMMENT LATER) ---
+      const isStandalone = url.startsWith('/admin') || url.startsWith('/start-project');
+      this.isStandaloneRoute.set(isStandalone);
+      */
+
       if (url.startsWith('/admin')) {
         // Destroy Lenis so the admin panel uses native browser scroll
         this.smoothScroll.destroy();
@@ -61,6 +67,19 @@ export class App implements OnInit {
     // Force standalone mode intrinsically on load
     this.isStandaloneRoute.set(true);
     this.smoothScroll.init();
+
+    /*
+    // --- ORIGINAL LOGIC (UNCOMMENT LATER) ---
+    const initialUrl = this.router.url;
+    if (initialUrl.startsWith('/admin') || initialUrl.startsWith('/start-project')) {
+      this.isStandaloneRoute.set(true);
+      if (initialUrl.startsWith('/admin')) {
+        this.smoothScroll.destroy();
+      }
+    } else {
+      this.smoothScroll.init();
+    }
+    */
   }
 
   getRouteAnimationData(outlet: RouterOutlet) {
