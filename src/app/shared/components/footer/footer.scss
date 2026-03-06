@@ -19,6 +19,10 @@
     @include flex-col;
     gap: $space-sm;
     color: $color-text;
+
+    svg{
+        height: 42px;
+    }
 }
 
 .site-footer__tagline {
