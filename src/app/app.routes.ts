@@ -1,22 +1,6 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-    // --- TEMPORARY COMING SOON MODE ---
-    {
-        path: '',
-        loadComponent: () =>
-            import('./pages/coming-soon/coming-soon').then(m => m.ComingSoonComponent)
-    },
-    {
-        path: '**',
-        redirectTo: '',
-        pathMatch: 'full'
-    }
-];
-
-/* 
-// --- ORIGINAL FULL SITE ROUTES (UNCOMMENT LATER) ---
-export const routes: Routes = [
     {
         path: '',
         loadComponent: () =>
@@ -57,4 +41,3 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/not-found/not-found').then(m => m.NotFoundComponent)
     }
 ];
-*/
