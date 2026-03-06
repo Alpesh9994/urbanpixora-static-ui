@@ -1,0 +1,82 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+// ── Stats — dark section with amber numbers ──────────────────
+.stats-section {
+    padding: clamp(48px, 8vw, 100px) 0;
+    background: #000000;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.06);
+
+    @include respond-md {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $space-sm;
+    padding: $space-lg $space-md; // tighter on mobile
+    background: #000000;
+    text-align: center;
+    position: relative;
+    transition: background 0.3s ease;
+
+    @include respond-md {
+        padding: $space-xl $space-lg;
+    }
+
+    &:hover {
+        background: #0a0a0a;
+    }
+}
+
+.stat-item__value {
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: $font-weight-bold;
+    color: $color-accent;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.stat-item__label {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+// Landing bounce when count-up finishes (.did-count added by TS)
+.stat-item__value.did-count {
+    animation: countLand 0.55s cubic-bezier(0.2, 0.8, 0.4, 1) both;
+}
+
+@keyframes countLand {
+    0% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.14);
+        text-shadow: 0 0 18px rgba($color-accent, 0.5);
+    }
+
+    70% {
+        transform: scale(0.96);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

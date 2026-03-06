@@ -1,0 +1,351 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+$lt-bg: #f7f7f5;
+$lt2: #ffffff;
+$lt-text: #0e0e0e;
+$lt-muted: #777;
+$lt-border: rgba(0, 0, 0, 0.09);
+
+// ── VALUES SECTION (light) ────────────────────────────────────
+.about-values {
+    padding: clamp(64px, 10vw, 120px) 0;
+    background: $lt2;
+    border-top: 1px solid $lt-border;
+}
+
+.about-values__label {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-md;
+
+    &::before {
+        content: '';
+        display: block;
+        width: 28px;
+        height: 2px;
+        background: $color-accent;
+    }
+}
+
+.about-values__heading {
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: $font-weight-bold;
+    line-height: 1.12;
+    color: $lt-text;
+    margin: 0 0 $space-xl;
+
+    em {
+        font-style: italic;
+        font-weight: $font-weight-regular;
+        color: rgba($lt-text, 0.35);
+    }
+}
+
+.about-values__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: $lt-border;
+    border: 1px solid $lt-border;
+    border-radius: $radius-md;
+    overflow: hidden;
+
+    @include respond-md {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-lg {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.about-values__card {
+    background: $lt2;
+    padding: $space-lg; // mobile: tighter
+    transition: background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    @include respond-md {
+        padding: $space-xl;
+    }
+
+    // Bottom accent bar — sweeps in on hover
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: $color-accent;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &:hover {
+        background: $lt-bg;
+
+        &::after {
+            transform: scaleX(1);
+        }
+
+        .about-values__card-icon {
+            transform: scale(1.15) rotate(10deg);
+            color: $color-accent;
+        }
+    }
+}
+
+.about-values__card-icon {
+    font-size: 2rem;
+    color: rgba($color-accent, 0.7);
+    margin-bottom: $space-lg;
+    display: block;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+    line-height: 1;
+}
+
+.about-values__card-title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $lt-text;
+    margin: 0 0 $space-sm;
+}
+
+.about-values__card-desc {
+    font-size: $font-size-sm;
+    line-height: $line-height-loose;
+    color: $lt-muted;
+    margin: 0;
+}
+
+// ── PROCESS SECTION (light) ────────────────────────────────────
+.about-process {
+    padding: clamp(64px, 10vw, 120px) 0;
+    background: $lt-bg;
+}
+
+.about-process__label {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-md;
+
+    &::before {
+        content: '';
+        display: block;
+        width: 28px;
+        height: 2px;
+        background: $color-accent;
+    }
+}
+
+.about-process__heading {
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: $font-weight-bold;
+    line-height: 1.12;
+    color: $lt-text;
+    margin: 0 0 $space-xl;
+
+    em {
+        font-style: italic;
+        font-weight: $font-weight-regular;
+        color: rgba($lt-text, 0.35);
+    }
+}
+
+.about-process__intro {
+    font-size: $font-size-sm;
+    line-height: $line-height-loose;
+    color: $lt-muted;
+    margin: 0;
+}
+
+.about-process__steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-md;
+    margin-top: $space-xxl;
+
+    @include respond-md {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.about-process__step {
+    position: relative;
+    padding: $space-xl $space-lg $space-xl 80px; // mobile: tighter left padding
+    border: 1px solid $lt-border;
+    border-radius: $radius-md;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    overflow: hidden;
+
+    @include respond-md {
+        padding: $space-xl $space-xl $space-xl 100px;
+    }
+
+    &:hover {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+        border-color: rgba($color-accent, 0.3);
+    }
+
+    &:hover .about-process__step-bar {
+        transform: scaleX(1);
+    }
+}
+
+.about-process__step-num {
+    position: absolute;
+    left: $space-lg;
+    top: $space-xl;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: $font-weight-bold;
+    color: $color-accent;
+    line-height: 1;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+
+    .about-process__step:hover & {
+        opacity: 1;
+    }
+
+    @include respond-md {
+        left: $space-xl;
+    }
+}
+
+.about-process__step-title {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    color: $lt-text;
+    margin: 0 0 $space-sm;
+}
+
+.about-process__step-desc {
+    font-size: $font-size-sm;
+    line-height: $line-height-loose;
+    color: $lt-muted;
+    margin: 0;
+}
+
+.about-process__step-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, $color-accent, rgba($color-accent, 0.4));
+    border-radius: 0 0 $radius-md $radius-md;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// ── TECH STACK SECTION (light) ─────────────────────────────────
+.about-stack {
+    padding: clamp(64px, 10vw, 120px) 0;
+    background: $lt2;
+    border-top: 1px solid $lt-border;
+}
+
+.about-stack__label {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-md;
+
+    &::before {
+        content: '';
+        display: block;
+        width: 28px;
+        height: 2px;
+        background: $color-accent;
+    }
+}
+
+.about-stack__heading {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: $font-weight-bold;
+    line-height: 1.12;
+    color: $lt-text;
+    margin: 0 0 $space-xxl;
+
+    em {
+        font-style: italic;
+        font-weight: $font-weight-regular;
+        color: rgba($lt-text, 0.35);
+    }
+}
+
+.about-stack__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: $lt-border;
+    border: 1px solid $lt-border;
+    border-radius: $radius-md;
+    overflow: hidden;
+
+    @include respond-sm {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    @include respond-lg {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+.about-stack__item {
+    background: $lt-bg;
+    padding: $space-lg $space-md;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $space-sm;
+    transition: background 0.25s ease;
+    cursor: default;
+    text-align: center;
+
+    @include respond-md {
+        padding: $space-xl $space-lg;
+    }
+
+    &:hover {
+        background: $lt2;
+
+        .about-stack__item-icon {
+            transform: translateY(-4px) scale(1.12);
+        }
+    }
+}
+
+.about-stack__item-icon {
+    font-size: 2rem;
+    line-height: 1;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.about-stack__item-name {
+    font-size: $font-size-xs;
+    color: $lt-muted;
+    letter-spacing: 0.05em;
+}

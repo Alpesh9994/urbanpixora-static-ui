@@ -1,0 +1,32 @@
+<section class="cta-section">
+    <!-- Abstract wavy background -->
+    <div class="cta-section__shapes" aria-hidden="true">
+        <svg viewBox="0 0 1440 600" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 300 C300 100, 600 500, 1440 300 L1440 600 L0 600 Z" fill="rgba(0,0,0,0.02)" />
+            <path d="M0 450 C400 350, 800 550, 1440 450 L1440 600 L0 600 Z" fill="rgba(0,0,0,0.02)" />
+        </svg>
+    </div>
+
+    <div class="container cta-section__inner" scrollReveal revealFrom="up">
+        <span class="cta-section__label">{{ data?.fields?.['subtitle'] || 'LET\'S BUILD TOGETHER' }}</span>
+        <h2 class="cta-section__heading"
+            [innerHTML]="data?.fields?.['title'] || 'Ready to Create Something<br><em>Extraordinary?</em>'"></h2>
+        <p class="cta-section__sub mx-auto" style="max-width: 500px;">
+            {{ data?.fields?.['description'] || 'Tell us about your project. We\'ll get back to you within 24 hours.' }}
+        </p>
+
+        <div class="cta-section__actions mt-5">
+            @if (data?.items && data?.items?.length) {
+            @for (btn of data?.items; track btn['url']) {
+            <a class="btn" [class.btn-primary]="btn['style'] === 'primary'"
+                [class.btn-outline]="btn['style'] === 'secondary'" [routerLink]="btn['url']">
+                {{ btn['label'] }} →
+            </a>
+            }
+            } @else {
+            <a class="btn btn-primary" routerLink="/contact">START A PROJECT →</a>
+            <a class="btn btn-outline" routerLink="/work">SEE OUR WORK →</a>
+            }
+        </div>
+    </div>
+</section>

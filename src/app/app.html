@@ -1,0 +1,10 @@
+@if (!isAdminRoute()) {
+  <app-custom-cursor />
+  <app-header />
+  <app-overlay-menu />
+  <main class="app-shell" [@routeTransition]="getRouteAnimationData(outlet)">
+    <router-outlet #outlet="outlet" />
+  </main>
+} @else {
+  <router-outlet />
+}

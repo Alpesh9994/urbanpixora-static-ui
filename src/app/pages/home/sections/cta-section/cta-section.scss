@@ -1,0 +1,100 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+// ── Light CTA section ─────────────────────────────────────────
+$lt-bg: #f7f7f5;
+$lt-text: #0e0e0e;
+$lt-muted: #777777;
+$lt-border: rgba(0, 0, 0, 0.09);
+
+.cta-section {
+    position: relative;
+    padding: clamp(64px, 10vw, 140px) 0;
+    background: $lt-bg;
+    overflow: hidden;
+}
+
+// Geometric background shapes (subtle dark lines on cream)
+.cta-section__shapes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    svg {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.cta-section__inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 740px;
+    margin: 0 auto;
+}
+
+.cta-section__label {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-sm;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: $color-accent;
+    margin-bottom: $space-lg;
+
+    &::before {
+        content: '';
+        display: block;
+        width: 28px;
+        height: 2px;
+        background: $color-accent;
+    }
+}
+
+.cta-section__heading {
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    font-weight: $font-weight-bold;
+    line-height: 1.1;
+    color: $lt-text; // dark text on light bg
+    margin: 0 0 $space-lg;
+
+    em {
+        font-style: italic;
+        font-weight: $font-weight-regular;
+        color: $color-accent; // amber italic word
+    }
+}
+
+.cta-section__sub {
+    font-size: $font-size-sm;
+    color: $lt-muted;
+    margin: 0 0 $space-xl;
+    line-height: $line-height-loose;
+}
+
+.cta-section__actions {
+    display: flex;
+    flex-direction: column; // stack on mobile
+    align-items: stretch;
+    gap: $space-md;
+
+    @include respond-sm {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: $space-lg;
+    }
+}
+
+// Mobile: center the stacked buttons
+.btn-primary,
+.btn-outline {
+    justify-content: center;
+
+    @include respond-sm {
+        justify-content: flex-start;
+    }
+}

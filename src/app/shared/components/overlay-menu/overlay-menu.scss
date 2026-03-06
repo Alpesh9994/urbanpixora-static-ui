@@ -1,0 +1,214 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+
+// ── Overlay Shell ─────────────────────────────────────────────
+.nav-overlay {
+    @include full-overlay($color-bg, $z-overlay);
+    @include flex-col;
+    overflow: hidden; // clip background shapes
+    overflow-y: auto; // allow vertical scroll if content is taller
+}
+
+// ── Brand ─────────────────────────────────────────────────────
+.nav-overlay__brand {
+    position: absolute;
+    top: $space-lg;
+    left: 20px; // mobile-first: 20px
+    color: $color-text;
+    text-decoration: none;
+    @include flex-center;
+    @include transition(opacity, $transition-fast);
+
+    &:hover {
+        opacity: 0.7;
+    }
+
+    @include respond-md {
+        left: 80px;
+    }
+}
+
+// ── Close Button ──────────────────────────────────────────────
+.nav-overlay__close {
+    position: absolute;
+    top: $space-lg;
+    right: 20px; // mobile-first: 20px
+    background: transparent;
+    border: none;
+    color: rgba($color-text, 0.55);
+    @include transition(color background, $transition-fast);
+
+    &:hover {
+        color: $color-text;
+        background: rgba($color-text, 0.06);
+    }
+
+    &:focus-visible {
+        outline: 2px solid $color-accent;
+        outline-offset: 2px;
+    }
+
+    @include respond-md {
+        right: 80px;
+    }
+}
+
+// ── Background Shapes ─────────────────────────────────────────
+.nav-overlay__shapes {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55%;
+    height: 60%;
+    pointer-events: none;
+    opacity: 0.5; // dimmer on mobile so it doesn't distract
+
+    @include respond-md {
+        opacity: 0.8;
+    }
+
+    svg {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+// ── Body layout ───────────────────────────────────────────────
+// Mobile: single column (nav links, then aside below)
+// Desktop: two column side-by-side with divider
+.nav-overlay__body {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xl;
+    min-height: 100%;
+    padding: 80px 24px 40px; // top clears 64px header + 16px breathing room
+    justify-content: center;
+    box-sizing: border-box;
+
+    @include respond-md {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        padding: 100px 80px $space-xxl;
+        align-items: center;
+    }
+}
+
+// ── Primary Nav ───────────────────────────────────────────────
+.nav-overlay__primary {
+    @include flex-col;
+    gap: $space-sm; // tighter on mobile
+
+    @include respond-md {
+        gap: $space-md;
+        padding-right: $space-xxl;
+    }
+}
+
+// ── Nav Links ─────────────────────────────────────────────────
+.nav-overlay__link {
+    font-family: $font-primary;
+    font-size: clamp(1.6rem, 5.5vw, 3.2rem); // tighter min — fits on 320px screens
+    font-weight: $font-weight-bold;
+    line-height: 1.2;
+    color: $color-text;
+    text-decoration: none;
+    display: block;
+    padding: 4px 0;
+    @include transition(color, $transition-fast);
+
+    // Active state: accent color
+    &.is-active {
+        color: $color-accent;
+    }
+
+    &:hover:not(.is-active) {
+        color: rgba($color-text, 0.55);
+    }
+
+    &:focus-visible {
+        outline: 2px solid $color-accent;
+        outline-offset: 4px;
+        border-radius: $radius-sm;
+    }
+}
+
+// ── Aside (right column) ──────────────────────────────────────
+.nav-overlay__aside {
+    @include flex-col;
+    gap: $space-lg;
+    padding-top: $space-lg;
+    border-top: 1px solid $color-border; // horizontal divider on mobile
+
+    @include respond-md {
+        padding-top: 0;
+        border-top: none;
+        padding-left: 80px;
+        border-left: 1px solid $color-border; // vertical divider on desktop
+    }
+}
+
+// ── Useful Links ──────────────────────────────────────────────
+.nav-overlay__util {
+    @include flex-col;
+    gap: $space-xs;
+}
+
+.nav-overlay__util-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text;
+    margin: 0 0 $space-sm;
+    letter-spacing: 0.02em;
+}
+
+.nav-overlay__util-link {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+    text-decoration: none;
+    @include transition(color, $transition-fast);
+    padding: 3px 0; // slightly larger tap target on mobile
+
+    &:hover {
+        color: $color-text;
+    }
+}
+
+// ── Divider ───────────────────────────────────────────────────
+.nav-overlay__divider {
+    border: none;
+    border-top: 1px solid $color-border;
+    margin: 0;
+}
+
+// ── Office Addresses ──────────────────────────────────────────
+.nav-overlay__offices {
+    display: grid;
+    grid-template-columns: 1fr 1fr; // 2-col addresses always (they're short)
+    gap: $space-md;
+}
+
+.nav-overlay__office {
+    @include flex-col;
+    gap: 2px;
+}
+
+.nav-overlay__office-city {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text;
+    margin: 0 0 $space-sm;
+}
+
+.nav-overlay__office-name {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+    margin: 0 0 $space-xs;
+}
+
+.nav-overlay__office-addr {
+    font-size: $font-size-xs;
+    line-height: 1.7;
+    color: $color-text-muted;
+    margin: 0;
+}
